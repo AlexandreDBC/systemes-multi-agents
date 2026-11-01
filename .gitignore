@@ -1,0 +1,9 @@
+
+*.class
+.idea/vcs.xml
+.idea/tp-poo-systemes_multiagents.iml
+.idea/modules.xml
+.idea/misc.xml
+output/*
+doc/*
+out/*
