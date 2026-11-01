@@ -1,11 +1,5 @@
 # 🤖 Object-Oriented Simulation of Multi-Agent Systems
 
-<p>
-  <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white" alt="Java" />
-  <img src="https://img.shields.io/badge/JUnit5-25A162?style=for-the-badge&logo=junit5&logoColor=white" alt="JUnit" />
-  <img src="https://img.shields.io/badge/Doxygen-Documentation-4285F4?style=for-the-badge" alt="Doxygen" />
-</p>
-
 > *Java simulation engine exploring emergent behaviors through cellular automata (Conway, Immigration) and multi-agent systems (Schelling, Boids), supported by comprehensive JUnit tests and Doxygen documentation.*
 
 > 📚 **Further Reading:** For more detailed insights, two PDF documents are available at the root of the project:
