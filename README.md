@@ -1,121 +1,122 @@
-<<<<<<< HEAD
-# systemes-multi-agents
-Java simulation engine exploring emergent behaviors through cellular automata (Conway, Immigration) and multi-agent systems (Schelling, Boids), supported by comprehensive JUnit tests and Doxygen documentation.
-=======
-# **Simulation Orientée-Objet de Systèmes Multiagents**
+# 🤖 Object-Oriented Simulation of Multi-Agent Systems
 
-## 1. Vue d'ensemble du projet
+[![Academic Project](https://img.shields.io/badge/Type-Academic%20Project-blue?style=for-the-badge)](https://github.com/AlexandreDBC)
+<p>
+  <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white" alt="Java" />
+  <img src="https://img.shields.io/badge/JUnit5-25A162?style=for-the-badge&logo=junit5&logoColor=white" alt="JUnit" />
+  <img src="https://img.shields.io/badge/Doxygen-Documentation-4285F4?style=for-the-badge" alt="Doxygen" />
+</p>
 
-Ce projet, réalisé dans le cadre du cours de Programmation Orientée Objet (POO) à l'Ensimag, est une application Java permettant de simuler graphiquement divers systèmes multiagents. L'accent a été mis sur une conception modulaire et extensible, en appliquant les principes fondamentaux de la POO tels que l'héritage, l'abstraction et l'encapsulation.
+> *Java simulation engine exploring emergent behaviors through cellular automata (Conway, Immigration) and multi-agent systems (Schelling, Boids), supported by comprehensive JUnit tests and Doxygen documentation.*
 
-L'application permet de simuler deux grandes familles de systèmes :
-*   **Les automates cellulaires** : Des systèmes où les agents sont positionnés sur une grille fixe et évoluent en fonction de l'état de leurs voisins (Jeu de la Vie, Jeu de l'Immigration, Modèle de Schelling).
-*   **Les systèmes d'essaims (Boids)** : Des systèmes où les agents se déplacent librement dans un espace 2D, leur comportement étant régi par des règles d'interaction locales (cohésion, alignement, séparation).
+> 📚 **Further Reading:** For more detailed insights, two PDF documents are available at the root of the project:
+> * `Documentation des choix.pdf` : Detailed explanations of the architectural and design choices.
+> * `Documentation utilisateur.pdf` : Complete user manual for running and interacting with the simulations.
 
-## 2. Architecture et Conception
+## 1. Project Overview
 
-L'architecture a été pensée pour être la plus générique possible, afin de faciliter l'ajout de nouvelles simulations avec un minimum de duplication de code.
+Developed as part of the Object-Oriented Programming (OOP) course at Ensimag, this Java application provides a graphical simulation of various multi-agent systems. The focus is on a modular and extensible design, applying fundamental OOP principles such as inheritance, abstraction, and encapsulation.
 
-#### **Cœur de la Simulation : `GUISimulator` et `Simulable`**
-L'interaction entre la logique de simulation et l'interface graphique fournie (`gui.jar`) est assurée par l'interface `Simulable`. Toute classe de simulation implémente cette interface, fournissant les méthodes `next()` pour avancer d'un pas de temps et `restart()` pour réinitialiser l'état initial. Cela permet à la `GUISimulator` de piloter n'importe quelle simulation de manière totalement agnostique.
+The application simulates two main families of systems:
+* **Cellular Automata:** Systems where agents are positioned on a fixed grid and evolve based on the state of their neighbors (Conway's Game of Life, Immigration Game, Schelling's Segregation Model).
+* **Swarm Systems (Boids):** Systems where agents move freely in a 2D space, with their behavior governed by local interaction rules (cohesion, alignment, separation).
 
-#### **Gestion des automates cellulaires (Package `main.automatons.grid`)**
-*   **`Grid` et `Cell`** : Gèrent la structure de données de la grille et l'état de chaque cellule.
-*   **`EvolutionRules` (Classe abstraite)** : Elle définit le contrat que toute règle de jeu doit respecter, notamment la méthode `computeNextCellState()`.
-*   **`GridSimulator`** : Ce simulateur prend en paramètre une instance de `EvolutionRules`. Il orchestre la simulation (mise à jour des cellules, dessin) sans connaître les règles spécifiques du jeu qu'il exécute. 
+## 2. Architecture and Design
 
-#### **Système de Boids (Package `main.boids`)**
-* Les boids ont un comportement basé sur des règles de **cohésion, d'alignement et de séparation**
-*   **`Boid`** : Représente un agent individuel. Sa méthode `update()` calcule les forces basées sur les trois règles de comportement classiques.
-*   **`Boids`** : Représente un groupe de boids partageant les mêmes paramètres (couleur, vitesse, perception, ...)
-*   **`BoidsGroupEvent`** : À intervalles réguliers, il demande à chaque boid d'un groupe de se mettre à jour, puis il se re-planifie pour le prochain pas de temps.
+The architecture was designed to be as generic as possible, making it easy to add new simulations with minimal code duplication.
 
-## 3. Structure des Fichiers et Dossiers
+#### **Simulation Core: `GUISimulator` and `Simulable`**
+The interaction between the simulation logic and the provided graphical interface (`gui.jar`) is handled by the `Simulable` interface. Any simulation class implements this interface, providing `next()` (to advance by one time step) and `restart()` (to reset the initial state) methods. This allows the `GUISimulator` to drive any simulation in a completely agnostic manner.
 
-Le code source est organisé en packages reflétant l'architecture décrite ci-dessus.
+#### **Cellular Automata Management (Package `main.automatons.grid`)**
+* **`Grid` and `Cell`:** Manage the grid data structure and the state of each cell.
+* **`EvolutionRules` (Abstract Class):** Defines the contract that any game rule must follow, specifically the `computeNextCellState()` method.
+* **`GridSimulator`:** This simulator takes an `EvolutionRules` instance as a parameter. It orchestrates the simulation (cell updates, rendering) without knowing the specific rules of the game it is running.
 
-```
+#### **Boids System (Package `main.boids`)**
+* Boids behave based on three classic rules: **cohesion, alignment, and separation**.
+* **`Boid`:** Represents an individual agent. Its `update()` method calculates the forces based on the three behavioral rules.
+* **`Boids`:** Represents a group of boids sharing the same parameters (color, speed, perception range, etc.).
+* **`BoidsGroupEvent`:** At regular intervals, this event asks each boid in a group to update its state, then reschedules itself for the next time step.
+
+## 3. File and Folder Structure
+
+The source code is organized into packages reflecting the architecture described above.
+
+```text
 .
 ├── lib/
-│   └── gui.jar           # Bibliothèque graphique fournie
-├── Makefile              # Pour compiler, exécuter et nettoyer le projet
-├── readme.md             # Ce fichier
+│   └── gui.jar                   # Provided graphical library
+├── Makefile                      # To compile, run, and clean the project
+├── readme.md                     # This file
 └── src/
-    ├── main.balls/            # Simulation simple de balles rebondissantes
-    ├── main.automatons.conway/           # Règles spécifiques au Jeu de la Vie de Conway
-    ├── main.automatons.grid/             # Framework générique pour les automates cellulaires
-    ├── main.automatons.immigration/      # Règles spécifiques au Jeu de l'Immigration
-    ├── main.invader/          # Code d'exemple fourni
-    ├── main.automatons.schelling/        # Règles spécifiques au modèle de ségrégation de Schelling
-    ├── main.boids/            # Implémentation du modèle de Boids
-    ├── main.events           # Package qui définit la gestion des actions planifiées 
-    ├── mains.utils/            # Classes utilitaires (génération de couleurs, etc.)
-    └── test/
+    ├── main.balls/               # Simple bouncing balls simulation
+    ├── main.automatons.conway/   # Specific rules for Conway's Game of Life
+    ├── main.automatons.grid/     # Generic framework for cellular automata
+    ├── main.automatons.immigration/ # Specific rules for the Immigration Game
+    ├── main.invader/             # Provided example code
+    ├── main.automatons.schelling/# Specific rules for Schelling's segregation model
+    ├── main.boids/               # Implementation of the Boids model
+    ├── main.events/              # Package defining the management of scheduled actions
+    ├── main.utils/               # Utility classes (color generation, etc.)
+    └── test/                     # JUnit tests
 ```
 
-## 4. Compilation et Exécution
+## 4. Compilation and Execution
 
-#### **Prérequis**
-*   Java Development Kit (JDK) version 17 ou supérieure.
-*   GNU Make.
-*   [junit-platform-console-standalone-6.0.1.jar](https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/6.0.1/junit-platform-console-standalone-6.0.1.jar)
+#### **Prerequisites**
+* Java Development Kit (JDK) version 17 or higher.
+* GNU Make.
+* [junit-platform-console-standalone-6.0.1.jar](https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/6.0.1/junit-platform-console-standalone-6.0.1.jar)
 
-
-#### **Compiler le projet**
-Pour compiler l'ensemble des fichiers source :
+#### **Compile the Project**
+To compile all source files, run:
 ```bash
 make
 ```
-Cette commande créera un dossier `bin/` contenant tous les fichiers `.class`.
+This command creates a `bin/` directory containing all `.class` files.
 
-#### **Exécuter le projet**
+#### **Run a Simulation**
 
 ```bash
 make run_invader
 ```
-ou
-
+or
 ```bash
 make run_balls
 ```
-ou
-
+or
 ```bash
 make run_conway
 ```
-ou
-
+or
 ```bash
 make run_immigration
 ```
-ou
- 
+or
 ```bash
 make run_schelling
 ```
-
-ou 
+or
 ```bash
 make run_boids
 ```
 
-### **Execution des tests unitaires**
+#### **Run Unit Tests**
 ```bash
 make tests
 ```
 
+#### **Other Makefile Commands**
 
-#### **Autres commandes Makefile**
+* **Generate Documentation (Doxyfile):**
+  ```bash
+  make doc
+  ```
+  The documentation will be generated in the `doc/` directory and can be accessed by opening `doc/html/index.html`.
 
-*   **Générer la documentation (Doxyfile) :**
-    ```bash
-    make doc
-    ```
-    La documentation sera générée dans le dossier `doc/` et accessible en ouvrant `doc/html/index.html`.
-
-*   **Nettoyer le projet :**
-    ```bash
-    make clean
-    ```
-    Cette commande supprime les dossiers `bin/` et `doc/`.
->>>>>>> master
+* **Clean the Project:**
+  ```bash
+  make clean
+  ```
+  This command removes the `bin/` and `doc/` directories.
