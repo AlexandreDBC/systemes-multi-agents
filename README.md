@@ -1,6 +1,5 @@
 # 🤖 Object-Oriented Simulation of Multi-Agent Systems
 
-[![Academic Project](https://img.shields.io/badge/Type-Academic%20Project-blue?style=for-the-badge)](https://github.com/AlexandreDBC)
 <p>
   <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white" alt="Java" />
   <img src="https://img.shields.io/badge/JUnit5-25A162?style=for-the-badge&logo=junit5&logoColor=white" alt="JUnit" />
